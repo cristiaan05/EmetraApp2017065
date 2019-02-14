@@ -1,0 +1,34 @@
+﻿<Controls:MetroWindow x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmetraApp"
+        mc:Ignorable="d"
+        Title="Emetra App" Height="400" Width="500" ResizeMode="NoResize" Background="White">
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="Menú" Command="{Binding Model}" CommandParameter="flyoutVentanas" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Header="Menú" IsOpen="{Binding FlyoutVentanas}" Position="Right" Width="200" Background="#80B944">
+                <Grid Width="150">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                        <Button Name="Agent" Content="Agent" Foreground="#80B944" BorderBrush="#80B944" Command="{Binding Model}" CommandParameter="AgentWindow" Width="100" Height="30" Margin="0,10" Style="{DynamicResource SquareButtonStyle}"/>
+                        <Button Name="Neighbor" Content="Neighbor"  Foreground="#80B944" BorderBrush="#80B944" Command="{Binding Model}" CommandParameter="NeighborWindow" Width="100" Height="30" Margin="0,10" Style="{DynamicResource SquareButtonStyle}"/>
+                        <Button Name="Vehicle" Content="Vehicle"  Foreground="#80B944" BorderBrush="#80B944" Width="100" Command="{Binding Model}" CommandParameter="VehicleWindow" Height="30" Margin="0,10" Style="{DynamicResource SquareButtonStyle}"/>
+                        <Button Name="SanctionType" Content="Sanction Type"  Foreground="#80B944" BorderBrush="#80B944" Width="100" Command="{Binding Model}" CommandParameter="SanctionTypeWindow" Height="30" Margin="0,10" Style="{DynamicResource SquareButtonStyle}"/>
+                        <Button Name="Remission" Content="Remission"  Foreground="#80B944" BorderBrush="#80B944" Command="{Binding Model}" CommandParameter="RemissionWindow" Width="100" Height="30" Margin="0,10" Style="{DynamicResource SquareButtonStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+    <Grid Margin="0,0,-6,128">
+        <Image x:Name="image" HorizontalAlignment="Left" Height="205" Margin="135,28,0,0" VerticalAlignment="Top" Width="228"/>
+        <Image x:Name="___EmetraApp_component_logo_png" Margin="37,66,51,-80" Source="/EmetraApp;component/logo.png" Stretch="Fill"/>
+    </Grid>
+</Controls:MetroWindow>

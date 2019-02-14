@@ -1,0 +1,81 @@
+﻿<Controls:MetroWindow x:Class="RemissionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        Dialog:DialogParticipation.Register="{Binding}"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmetraApp"
+        mc:Ignorable="d"
+        Title="Remission" Height="600" Width="950" ResizeMode="NoResize">
+    <Grid>
+        <Label x:Name="label" Content="Order Number" HorizontalAlignment="Left" Margin="15,16,0,0" VerticalAlignment="Top" Width="116"/>
+        <Label x:Name="label1" Content="Remission Date" HorizontalAlignment="Left" Margin="15,56,0,0" VerticalAlignment="Top" Width="95"/>
+        <Label x:Name="label2" Content="Hour" HorizontalAlignment="Left" Margin="15,96,0,0" VerticalAlignment="Top" Width="74"/>
+        <Label x:Name="label3" Content="Place" HorizontalAlignment="Left" Margin="15,136,0,0" VerticalAlignment="Top" Width="116"/>
+        <Label x:Name="label4" Content="Remission ID" HorizontalAlignment="Left" Margin="487,16,0,0" VerticalAlignment="Top" Width="84"/>
+        <Label x:Name="label5" Content="AgentID" HorizontalAlignment="Left" Margin="487,56,0,0" VerticalAlignment="Top" Width="84"/>
+        <Label x:Name="label6" Content="License Plate" HorizontalAlignment="Left" Margin="487,96,0,0" VerticalAlignment="Top" Width="132"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="159,16,0,0" TextWrapping="Wrap" IsEnabled="False" Text="{Binding OrderNumber}" VerticalAlignment="Top" Width="300"/>
+        <DatePicker HorizontalAlignment="Left" Margin="159,56,0,0" SelectedDate="{Binding RemissionDate}" IsEnabled="{Binding TextBox}" VerticalAlignment="Top" Width="300"/>
+        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="23" Margin="159,96,0,0" TextWrapping="Wrap" Controls:TextBoxHelper.ClearTextButton="True"    IsEnabled="{Binding TextBox}" Text="{Binding Hour}" VerticalAlignment="Top" Width="300"/>
+        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="159,136,0,0" TextWrapping="Wrap" Controls:TextBoxHelper.ClearTextButton="True"    IsEnabled="{Binding TextBox}" Text="{Binding Place}" VerticalAlignment="Top" Width="300"/>
+        <ComboBox x:Name="comboBox" ItemsSource="{Binding ListSanctionType}" SelectedItem="{Binding SanctionType}" IsEnabled="{Binding TextBox}" HorizontalAlignment="Left" Margin="631,16,0,0"  VerticalAlignment="Top" Width="300">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} - {1}">
+                                <Binding Path="RemissionID"/>
+                                <Binding Path="Description"/>
+                            </MultiBinding>
+                        </TextBlock.Text>    
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ComboBox x:Name="comboBox1" ItemsSource="{Binding ListAgent}" SelectedItem="{Binding Agent}" IsEnabled="{Binding TextBox}" HorizontalAlignment="Left" Margin="631,56,-39,0" VerticalAlignment="Top" Width="300">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} - {1}  {2}">
+                                <Binding Path="AgentID"/>
+                                <Binding Path="AgentName"/>
+                                <Binding Path="AgentLastName"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ComboBox x:Name="comboBox3" ItemsSource="{Binding ListVehicle}" SelectedItem="{Binding Vehicle}" IsEnabled="{Binding TextBox}" HorizontalAlignment="Left" Margin="631,96,-39,0" VerticalAlignment="Top" Width="300">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding LicensePlate}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <StackPanel HorizontalAlignment="Left" Height="302" Margin="32,191,0,0" VerticalAlignment="Top"  Width="900">
+            <DataGrid x:Name="dataGrid" ItemsSource="{Binding ListRemission}" SelectedItem="{Binding Element}" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="*">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="OrderNumber"  Binding="{Binding OrderNumber}"/>
+                    <DataGridTextColumn Header="Remission Date"  Binding="{Binding RemissionDate}"/>
+                    <DataGridTextColumn Header="Hour"  Binding="{Binding Hour}"/>
+                    <DataGridTextColumn Header="Place"  Binding="{Binding Place}"/>
+                    <DataGridTextColumn Header="RemissionID"  Binding="{Binding SanctionType.RemissionID}"/>
+                    <DataGridTextColumn Header="Agent ID"  Binding="{Binding Agent.AgentID}"/>
+                    <DataGridTextColumn Header="License Plate"  Binding="{Binding Vehicle.LicensePlate}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Button x:Name="button" Content="New" Command="{Binding Model}" CommandParameter="New" IsEnabled="{Binding BtnNew}" HorizontalAlignment="Left" Margin="39,509,0,0" VerticalAlignment="Top" Width="75" Background="#80BA43" Foreground="Black"/>
+        <Button x:Name="button_Copy" Content="Save" Command="{Binding Model}" CommandParameter="Save" IsEnabled="{Binding BtnSave}" HorizontalAlignment="Left" Margin="155,509,0,0" VerticalAlignment="Top" Width="75" Background="#80BA43" Foreground="Black"/>
+        <Button x:Name="button_Copy1" Content="Delete" Command="{Binding Model}" CommandParameter="Delete" IsEnabled="{Binding BtnDelete}" HorizontalAlignment="Left" Margin="275,509,0,0" VerticalAlignment="Top" Width="75" Background="#80BA43" Foreground="Black"/>
+        <Button x:Name="button_Copy2" Content="Update" Command="{Binding Model}" CommandParameter="Update" IsEnabled="{Binding BtnUpdate}" HorizontalAlignment="Left" Margin="407,509,0,0" VerticalAlignment="Top" Width="75" Background="#80BA43" Foreground="Black"/>
+        <Button x:Name="button_Copy3" Content="Cancel" Command="{Binding Model}" CommandParameter="Cancel" IsEnabled="{Binding BtnCancel}" HorizontalAlignment="Left" Margin="519,509,0,0" VerticalAlignment="Top" Width="75" Background="#80BA43" Foreground="Black"/>
+
+    </Grid>
+</Controls:MetroWindow>
